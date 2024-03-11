@@ -2,7 +2,7 @@
 CC = gcc
 
 # Compiler flags
-CFLAGS = -Wall -Wextra -std=c11
+CFLAGS = -Wall -Wextra -std=c99
 LDFLAGS = -lm
 
 # Source files
@@ -20,7 +20,21 @@ OBJ = $(patsubst %.c,$(OBJ_DIR)/%.o,$(SRC))
 # Executable name
 TARGET = $(BIN_DIR)/gpsharp_reader
 
-.PHONY: all clean
+# Formatting and Static Analysis tools
+CLANG_FORMAT = clang-format-12
+CPPCHECK = cppcheck
+
+CPPCHECK_INCLUDES = ./
+
+CPPCHECK_FLAGS = \
+	--quiet --enable=all --error-exitcode=1 \
+	--inline-suppr \
+	--suppress=missingIncludeSystem \
+	--suppress=unmatchedSuppression \
+	--suppress=unusedFunction \
+	$(addprefix -I,$(CPPCHECK_INCLUDES))
+
+.PHONY: all clean format check
 
 all: $(TARGET)
 
@@ -36,6 +50,11 @@ $(OBJ_DIR):
 $(BIN_DIR):
 	mkdir -p $(BIN_DIR)
 
+format:
+	$(CLANG_FORMAT) -i $(SRC) $(wildcard *.h)
+
+cppcheck:
+	$(CPPCHECK) $(CPPCHECK_FLAGS)  $(SRC) $(wildcard *.h)
+
 clean:
 	rm -rf build
-
