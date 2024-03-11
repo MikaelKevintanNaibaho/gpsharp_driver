@@ -2,10 +2,8 @@
 
 int main(void)
 {
-    int spi_fd;
+    int spi_fd = spi_init(SPI_DEVICE);
 
-    // init
-    spi_fd = spi_init(SPI_DEVICE);
 
     while (1) {
         // read adc from channel 0
