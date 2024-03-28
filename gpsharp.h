@@ -23,4 +23,4 @@ int spi_init(const char *device);
 uint16_t read_adc_gpsharp(int channel, int spi_fd);
 double adc_to_distance(uint16_t adc_value);
 
-#endif // GHSHARP_H
+#endif // GPSHARP_H
