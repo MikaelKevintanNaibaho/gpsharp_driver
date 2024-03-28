@@ -6,7 +6,7 @@ int spi_open(const char *device)
     // open spi device
     if ((spi_file_decriptor = open(device, O_RDWR)) < 0) {
         perror("failed to open SPI device\n");
-        exit(EXIT_FAILURE);
+        return -1;;
     }
 
     return spi_file_decriptor;

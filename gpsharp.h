@@ -14,7 +14,7 @@
 #define SPI_MODE SPI_MODE_0
 #define SPI_BITS 8
 #define SPI_SPEED 1000000 // clock speed SPI 1MHz
-#define VREF 5
+#define VREF 3.3
 
 int spi_open(const char *device);
 int spi_close(int file);
